@@ -1,10 +1,10 @@
 
 .data
-input: .string "enter the message here: "
-input2: .string "\n enter scrambeled text: "
-input3: .string "\n enter seed: "
-output1: .string "Scrambled message: "
-output2: .string "\n original message: "
+input: .string "enter the message here:"
+input2: .string "\n enter scrambeled text:"
+input3: .string "\n enter seed:"
+output1: .string "Scrambled message:"
+output2: .string "\n original message:"
 debug: .string "\n"
 output3:.string "\n this is the seed you will use for descrambler:"
 buffer: .space 256	 # allocate a buffer to store the input string
@@ -99,16 +99,13 @@ li a7,5		# load the syscall number for reading an integer
 la a0,seed  	# load the address of the input buffer
 li a1,256 	# load max number of characters to read
 ecall     	# execute the syscall to read the input integer
-
-##This time loop should work backward
-lb x11,seed
-			li a7,1		# set the print syscall number
-			mv a0,x11	#load the address of the message
-			ecall  
+la x11,seed
 la x5, buffer2       	# load the address of the input buffer
 add x5,x5,x13		#load address of last charecter
 li x14, 0 		# initialize the loop counter
 neg x25,x13		#to be used for loop condition
+##This time loop should work backward
+
 loop2:
 	la x6,buffer2		#toad the address of input buffer again to be used to get address of charecter
 	remu x7, x11, x13	#generate seeds backward
